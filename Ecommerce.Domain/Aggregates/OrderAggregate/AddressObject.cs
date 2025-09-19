@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EcommerceV4.Domain.ValueObjects
+namespace EcommerceV4.Domain.Aggregates.OrderAggregate
 {
     public class AddressObject
     {

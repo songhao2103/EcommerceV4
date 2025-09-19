@@ -1,4 +1,4 @@
-﻿namespace EcommerceV4.Domain.ValueObjects
+﻿namespace EcommerceV4.Domain.Aggregates.OrderAggregate
 {
     public class ProductInfoObject
     {

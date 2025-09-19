@@ -1,7 +1,8 @@
 ﻿using System;
-using EcommerceV4.Domain.ValueObjects;
+using EcommerceV4.Domain.Aggregates.ProductAggregate;
+using EcommerceV4.Domain.Common.ValueObjects;
 
-namespace EcommerceV4.Domain.Entities
+namespace EcommerceV4.Domain.Aggregates.OrderAggregate
 {
     public class OrderDetail
     {

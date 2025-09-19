@@ -1,4 +1,4 @@
-﻿namespace EcommerceV4.Domain.Entities
+﻿namespace EcommerceV4.Domain.Aggregates.ProductAggregate
 {
     public class ProductVariant
     {

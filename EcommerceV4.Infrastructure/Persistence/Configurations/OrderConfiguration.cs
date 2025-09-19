@@ -1,4 +1,4 @@
-﻿using EcommerceV4.Domain.Entities;
+﻿using EcommerceV4.Domain.Aggregates.OrderAggregate;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

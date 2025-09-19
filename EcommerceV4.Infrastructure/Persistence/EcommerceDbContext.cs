@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using EcommerceV4.Domain.Entities;
+using EcommerceV4.Domain.Aggregates.OrderAggregate;
 
 namespace EcommerceV4.Infrastructure.Persistence
 {

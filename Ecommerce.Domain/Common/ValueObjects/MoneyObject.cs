@@ -1,4 +1,4 @@
-﻿namespace EcommerceV4.Domain.ValueObjects
+﻿namespace EcommerceV4.Domain.Common.ValueObjects
 {
     public class MoneyObject
     {

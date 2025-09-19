@@ -1,6 +1,8 @@
-﻿using EcommerceV4.Domain.Enums;
+﻿using EcommerceV4.Domain.Aggregates.CompanyAggregate;
+using EcommerceV4.Domain.Aggregates.ProductAggregate.Enums;
+using EcommerceV4.Domain.Aggregates.StoreAggregate;
 
-namespace EcommerceV4.Domain.Entities
+namespace EcommerceV4.Domain.Aggregates.ProductAggregate
 {
     public class Product
     {
@@ -18,7 +20,8 @@ namespace EcommerceV4.Domain.Entities
 
         public override string ToString()
         {
-            return $"{this.ProductName} {this.Description}";
+            return $"{ProductName} {Description}";
         }
+
     }
 }

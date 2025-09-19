@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EcommerceV4.Domain.Entities
+namespace EcommerceV4.Domain.Aggregates.StoreAggregate
 {
     public class Store
     {

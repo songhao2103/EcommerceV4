@@ -1,7 +1,7 @@
-﻿using EcommerceV4.Domain.Enums;
-using EcommerceV4.Domain.ValueObjects;
+﻿using EcommerceV4.Domain.Aggregates.OrderAggregate.Enums;
+using EcommerceV4.Domain.Aggregates.UserAggregate;
 
-namespace EcommerceV4.Domain.Entities
+namespace EcommerceV4.Domain.Aggregates.OrderAggregate
 {
     public class Order
     {
