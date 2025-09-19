@@ -1,0 +1,33 @@
+﻿using EcommerceV4.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace EcommerceV4.Infrastructure.Persistence.Configurations
+{
+    internal class OrderDetailConfiguration : IEntityTypeConfiguration<OrderDetail>
+    {
+        public void Configure(EntityTypeBuilder<OrderDetail> builder)
+        {
+            builder.ToTable(nameof(OrderDetail));
+
+            builder.HasKey(x => x.Id);
+
+            builder.Property(od => od.Quantity).IsRequired();
+
+            builder.Property(od => od.Price).IsRequired().HasColumnType("decimal(18,2)");
+            
+            builder.Property(od => od.ProductName).IsRequired();
+
+            //OnDelete(DeleteBehavior.Cascade): Kho xóa order thì sẽ xóa luôn hết các order liên quan
+            builder.HasOne(od => od.Order).WithMany(o => o.Details).HasForeignKey(od => od.OrderId).OnDelete(DeleteBehavior.Cascade);
+
+            // OnDelete(DeleteBehavior).Restrict: Khi cố gắng xóa ProductVariant mà đang có OrderDetail tham chiếu đến nó thì DB sẽ chặn không cho xóa
+            builder.HasOne(od => od.ProductVariant).WithMany().HasForeignKey(od => od.ProductVariantId).OnDelete(DeleteBehavior.Restrict);
+        }
+    }
+}
