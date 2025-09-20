@@ -5,6 +5,6 @@ namespace EcommerceV4.Application.Interfaces
 {
     public interface ICompanyService
     {
-        public Task CreateCompanyAsync(CompanyCommand companyCommand);
+        public Task CreateCompanyAsync(CompanyCreateCommand companyCommand);
     }
 }

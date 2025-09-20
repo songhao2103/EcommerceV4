@@ -8,9 +8,9 @@ namespace EcommerceV4.Api.DTOs.Companies
         public string? Description { get; set; }
         public string? AddressDetail { get; set; }
 
-        public CompanyCommand ToCommand()
+        public CompanyCreateCommand ToCommand()
         {
-            return new CompanyCommand(CompanyName, Description, AddressDetail);
+            return new CompanyCreateCommand(CompanyName, Description, AddressDetail);
         }
     }
 }

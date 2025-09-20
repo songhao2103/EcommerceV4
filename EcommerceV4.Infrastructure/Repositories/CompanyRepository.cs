@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EcommerceV4.Infrastructure.Repositories
 {
-    internal class CompanyRepository : BaseRepository<Company>
+    public class CompanyRepository : BaseRepository<Company>
     {
         public CompanyRepository(EcommerceDbContext dbContext) : base(dbContext) { }
     }

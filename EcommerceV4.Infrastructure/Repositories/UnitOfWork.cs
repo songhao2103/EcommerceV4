@@ -1,11 +1,12 @@
-﻿using EcommerceV4.Domain.Repositories;
+﻿using EcommerceV4.Domain.Aggregates.CompanyAggregate;
+using EcommerceV4.Domain.Repositories;
 using EcommerceV4.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore.Storage;
 
 
 namespace EcommerceV4.Infrastructure.Repositories
 {
-    internal class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         private readonly EcommerceDbContext _dbContext;
         private IDbContextTransaction? _transaction;
@@ -14,6 +15,21 @@ namespace EcommerceV4.Infrastructure.Repositories
         {
             _dbContext = context;
         }
+
+        private IRepository<Company>? _companyRepository;
+        public IRepository<Company> CompanyRepository
+        {
+            get
+            {
+                if(_companyRepository == null)
+                {
+                    _companyRepository = new CompanyRepository(_dbContext);
+                } 
+
+                return _companyRepository;
+            }
+        }
+
 
         public async Task BeginTransactionAsync()
         {

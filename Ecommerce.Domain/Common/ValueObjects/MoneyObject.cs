@@ -4,6 +4,8 @@
     {
         public decimal Price { get; private set; }
         public decimal Discount { get; private set; }
+        
+        public MoneyObject() { }
 
         public MoneyObject(decimal price, decimal discount)
         {

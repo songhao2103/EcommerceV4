@@ -11,7 +11,7 @@ namespace EcommerceV4.Domain.Aggregates.OrderAggregate
         public int OrderId { get; set; }
         public ProductInfoObject? ProductInfo { get; set; }
         public int StoreId { get; set; }
-        public MoneyObject? Money { get; set; }
+        public MoneyObject Money { get; set; } = new MoneyObject();
         public int? ProductVariantId { get; set; }
         public ProductVariant? ProductVariant { get; set; }
         public Order? Order { get; set; }
