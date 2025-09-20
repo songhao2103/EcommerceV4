@@ -12,5 +12,6 @@ namespace EcommerceV4.Domain.Repositories
         Task RollbackTransactionAsync();
         public void SaveChanges();
         public Task SaveChangeAsync();
+        public Task SaveChangeAsync(CancellationToken cancellationToken);
     }
 }

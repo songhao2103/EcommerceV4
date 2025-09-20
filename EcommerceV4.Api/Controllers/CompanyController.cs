@@ -1,6 +1,7 @@
-﻿using EcommerceV4.Api.DTOs.Companies;
-using EcommerceV4.Application.Interfaces;
+﻿using EcommerceV4.Application.Features.Companies.Commands.CreateCompany;
+using EcommerceV4.Application.Features.Companies.Queries.GetCompanies;
 using FluentValidation;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EcommerceV4.Api.Controllers
@@ -8,30 +9,37 @@ namespace EcommerceV4.Api.Controllers
     [ApiController]
     public class CompanyController : ControllerBase
     {
-        private readonly ICompanyService _companyService;
-        private readonly IValidator<PayloadCreateCompanyDTO> _payloadCreateCompanyValidator;
+        private readonly IMediator _mediator;
+        private readonly IValidator<CreateCompanyCommand> _createCommandValidator;
 
-        public CompanyController(ICompanyService companyService, IValidator<PayloadCreateCompanyDTO> payloadCreateCompanyValidator)
+        public CompanyController(IMediator mediator, IValidator<CreateCompanyCommand> createCommandValidator)
         {
-            _companyService = companyService;
-            _payloadCreateCompanyValidator = payloadCreateCompanyValidator;
+            _mediator = mediator;
+            _createCommandValidator = createCommandValidator;
         }
 
         [HttpPost("/api/company")]
-        public async Task<IActionResult> CreateCompanyAsync(PayloadCreateCompanyDTO payloadCreateCompanyDTO)
+        public async Task<IActionResult> CreateCompanyAsync(CreateCompanyCommand command)
         {
-            var resultValidator = _payloadCreateCompanyValidator.Validate(payloadCreateCompanyDTO);
+            var resultValidator = _createCommandValidator.Validate(command);
 
             if (!resultValidator.IsValid)
             {
                 return BadRequest(resultValidator.Errors);
             } 
-                
-            var command = payloadCreateCompanyDTO.ToCommand();
+               
 
-            await _companyService.CreateCompanyAsync(command);
+            int companyId = await _mediator.Send(command);
 
             return Ok("Success");
+        }
+
+        [HttpGet("/api/company")]
+        public async Task<IActionResult> GetCompaniesAsync(GetCompaniesQuery query)
+        {
+            var result = await _mediator.Send(query);
+
+            return Ok(result);
         }
     }
 }

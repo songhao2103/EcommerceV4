@@ -62,6 +62,11 @@ namespace EcommerceV4.Infrastructure.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
+        public async Task SaveChangeAsync(CancellationToken cancellationToken)
+        {
+            await _dbContext.SaveChangesAsync(cancellationToken);
+        }
+
         public void Dispose()
         {
             _transaction?.Dispose();

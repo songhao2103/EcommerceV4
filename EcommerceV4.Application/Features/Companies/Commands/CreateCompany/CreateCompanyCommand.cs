@@ -1,14 +1,15 @@
 ﻿using EcommerceV4.Domain.Aggregates.CompanyAggregate;
+using MediatR;
 
-namespace EcommerceV4.Application.Commands
+namespace EcommerceV4.Application.Features.Companies.Commands.CreateCompany
 {
-    public class CompanyCreateCommand
+    public class CreateCompanyCommand : IRequest<int>
     {
         public string CompanyName { get; set; } = string.Empty;
         public string? Description { get; set; }
         public string? AddressDetail { get; set; }
 
-        public CompanyCreateCommand(string companyName, string? description, string? addressDetail) 
+        public CreateCompanyCommand(string companyName, string? description, string? addressDetail)
         {
             CompanyName = companyName;
             Description = description;
@@ -17,7 +18,7 @@ namespace EcommerceV4.Application.Commands
 
         public Company ToEntity()
         {
-            return new Company(CompanyName, Description, AddressDetail);    
+            return new Company(CompanyName, Description, AddressDetail);
         }
     }
 }
