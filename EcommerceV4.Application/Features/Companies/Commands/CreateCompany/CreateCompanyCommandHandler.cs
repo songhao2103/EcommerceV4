@@ -7,9 +7,9 @@ namespace EcommerceV4.Application.Features.Companies.Commands.CreateCompany
     public class CreateCompanyCommandHandler : IRequestHandler<CreateCompanyCommand, int>
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly CompanyDomainService _domainService;
+        private readonly ICompanyDomainService _domainService;
 
-        public CreateCompanyCommandHandler(IUnitOfWork unitOfWork, CompanyDomainService domainService)
+        public CreateCompanyCommandHandler(IUnitOfWork unitOfWork, ICompanyDomainService domainService)
         {
             _unitOfWork = unitOfWork;
             _domainService = domainService;

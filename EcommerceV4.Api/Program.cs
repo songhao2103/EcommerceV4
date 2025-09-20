@@ -25,9 +25,12 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<ICompanyChecker, CompanyChecker>();
 
 
+//Domain services
+builder.Services.AddScoped<ICompanyDomainService, CompanyDomainService>();
+
 //MediatR
 builder.Services.AddMediatR(cfg => {
-    cfg.RegisterServicesFromAssembly(typeof(Program).Assembly);
+    cfg.RegisterServicesFromAssembly(typeof(CreateCompanyCommandHandler).Assembly);
 });
 
 builder.Services.AddControllers();

@@ -1,6 +1,6 @@
 ﻿namespace EcommerceV4.Domain.Aggregates.CompanyAggregate.Services
 {
-    public class CompanyDomainService
+    public class CompanyDomainService : ICompanyDomainService
     {
         private readonly ICompanyChecker _checker;
 
