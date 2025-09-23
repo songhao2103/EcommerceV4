@@ -1,4 +1,4 @@
-using EcommerceV4.Application.Common.Interfaces;
+﻿using EcommerceV4.Application.Common.Interfaces;
 using EcommerceV4.Application.Features.Companies.Commands.CreateCompany;
 using EcommerceV4.Application.Features.Products.Externals;
 using EcommerceV4.Application.Features.Stories.Commands.CreateStore;
@@ -12,7 +12,10 @@ using EcommerceV4.Infrastructure.Persistence;
 using EcommerceV4.Infrastructure.Repositories;
 using EcommerceV4.Infrastructure.Services;
 using FluentValidation;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,6 +24,36 @@ builder.Services.AddDbContextPool<EcommerceDbContext>(opt =>
 {
     opt.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+//Cấu hình JWT
+var jwtSetting = builder.Configuration.GetSection("Jwt");
+var key = Encoding.UTF8.GetBytes(jwtSetting.Key);
+
+builder.Services.AddAuthentication(option =>
+{
+    //Kích hoạt authentication subsystem của ASP.NET Core và config các default scheme
+    option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+
+    //Đặt scheme mặc định khi framework cần authenticate.
+    option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(option =>
+{
+    option.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+
+        ValidIssuer = jwtSetting["Issuer"],
+        ValidAudience = jwtSetting["Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(key),
+        ClockSkew = TimeSpan.Zero // bỏ delay mặc định 5 phút
+    };
+});
+
+
   
 //Validator
 builder.Services.AddScoped<IValidator<CreateCompanyCommand>, CreateCompanyCommandValidator>();
@@ -67,7 +100,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseAuthentication();
+app.UseAuthorization();
 //app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
