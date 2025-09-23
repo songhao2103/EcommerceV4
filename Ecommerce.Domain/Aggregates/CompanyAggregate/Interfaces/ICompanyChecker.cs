@@ -1,4 +1,4 @@
-﻿namespace EcommerceV4.Domain.Aggregates.CompanyAggregate.Services
+﻿namespace EcommerceV4.Domain.Aggregates.CompanyAggregate.Interfaces
 {
     public interface ICompanyChecker
     {

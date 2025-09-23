@@ -35,7 +35,7 @@ namespace EcommerceV4.Api.Controllers
         }
 
         [HttpGet("/api/company")]
-        public async Task<IActionResult> GetCompaniesAsync(GetCompaniesQuery query)
+        public async Task<IActionResult> GetCompaniesAsync([FromQuery] GetCompaniesQuery query)
         {
             var result = await _mediator.Send(query);
 

@@ -6,7 +6,6 @@ namespace EcommerceV4.Infrastructure.Persistence
     public class EcommerceDbContext : DbContext
     {
         public EcommerceDbContext(DbContextOptions<EcommerceDbContext> options) : base(options) { }
-
         public DbSet<Order> orders { get; set; }
         public DbSet<OrderDetail> ordersDetail { get; set; }
 
