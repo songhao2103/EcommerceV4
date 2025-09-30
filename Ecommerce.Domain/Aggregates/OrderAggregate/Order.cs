@@ -1,5 +1,6 @@
 ﻿using EcommerceV4.Domain.Aggregates.OrderAggregate.Enums;
 using EcommerceV4.Domain.Aggregates.UserAggregate;
+using EcommerceV4.Domain.Common.ValueObjects;
 
 namespace EcommerceV4.Domain.Aggregates.OrderAggregate
 {

@@ -1,4 +1,5 @@
-﻿using EcommerceV4.Domain.Aggregates.CompanyAggregate.Services;
+﻿using EcommerceV4.Domain.Aggregates.CompanyAggregate;
+using EcommerceV4.Domain.Aggregates.CompanyAggregate.Interfaces;
 using EcommerceV4.Domain.Repositories;
 
 
@@ -6,16 +7,16 @@ namespace EcommerceV4.Infrastructure.Services
 {
     public class CompanyChecker : ICompanyChecker
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IRepository<Company> _companyRepository;
 
-        public CompanyChecker(IUnitOfWork unitOfWork)
+        public CompanyChecker(IRepository<Company> companyRepository)
         {
-            _unitOfWork = unitOfWork;
+            _companyRepository = companyRepository;
         }
 
         public async Task<bool> IsNameTakenAsync(string name)
         {
-            return await _unitOfWork.CompanyRepository.AnyAsync(c => c.CompanyName == name);
+            return await _companyRepository.AnyAsync(c => c.CompanyName == name);
         }
     }
 }

@@ -16,21 +16,6 @@ namespace EcommerceV4.Infrastructure.Repositories
             _dbContext = context;
         }
 
-        private IRepository<Company>? _companyRepository;
-        public IRepository<Company> CompanyRepository
-        {
-            get
-            {
-                if(_companyRepository == null)
-                {
-                    _companyRepository = new CompanyRepository(_dbContext);
-                } 
-
-                return _companyRepository;
-            }
-        }
-
-
         public async Task BeginTransactionAsync()
         {
             _transaction = await _dbContext.Database.BeginTransactionAsync();

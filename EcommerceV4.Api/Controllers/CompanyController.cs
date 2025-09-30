@@ -1,7 +1,8 @@
-﻿using EcommerceV4.Application.Features.Companies.Commands.CreateCompany;
+﻿using EcommerceV4.Application.Common.Extenstions;
+using EcommerceV4.Application.Features.Companies.Commands.CreateCompany;
 using EcommerceV4.Application.Features.Companies.Queries.GetCompanies;
-using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EcommerceV4.Api.Controllers
@@ -10,35 +11,24 @@ namespace EcommerceV4.Api.Controllers
     public class CompanyController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly IValidator<CreateCompanyCommand> _createCommandValidator;
 
-        public CompanyController(IMediator mediator, IValidator<CreateCompanyCommand> createCommandValidator)
+        public CompanyController(IMediator mediator)
         {
             _mediator = mediator;
-            _createCommandValidator = createCommandValidator;
         }
 
         [HttpPost("/api/company")]
+        //[Authorize]
         public async Task<IActionResult> CreateCompanyAsync(CreateCompanyCommand command)
         {
-            var resultValidator = _createCommandValidator.Validate(command);
-
-            if (!resultValidator.IsValid)
-            {
-                return BadRequest(resultValidator.Errors);
-            } 
-               
-
-            int companyId = await _mediator.Send(command);
-
-            return Ok("Success");
+            var result = await _mediator.Send(command);
+            return result.ToActionResult();
         }
 
         [HttpGet("/api/company")]
-        public async Task<IActionResult> GetCompaniesAsync(GetCompaniesQuery query)
+        public async Task<IActionResult> GetCompaniesAsync([FromQuery] GetCompaniesQuery query)
         {
             var result = await _mediator.Send(query);
-
             return Ok(result);
         }
     }
